@@ -5,7 +5,6 @@ import CreatePost from "@/components/CreatePost";
 import ModeToggle from "@/components/ModeToggle";
 import PostCard from "@/components/PostCard";
 import SuggestedUsers from "@/components/SuggestedUsers";
-import { SignedOut,  SignInButton } from "@clerk/nextjs";
 import { currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
 

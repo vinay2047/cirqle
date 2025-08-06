@@ -39,7 +39,7 @@ function CreatePost() {
         <div className="space-y-4">
           <div className="flex space-x-4">
             <Avatar className="w-10 h-10">
-              <AvatarImage src={user?.imageUrl || "/avatar.png"} />
+              <AvatarImage src={user?.imageUrl || "/avatar(1).png"} />
             </Avatar>
             <Textarea
               placeholder="What's on your mind?"

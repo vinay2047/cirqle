@@ -5,6 +5,7 @@ import { Avatar, AvatarImage } from '@radix-ui/react-avatar'
 import { Link } from 'lucide-react'
 import FollowButton from './FollowButton'
 
+
 async function SuggestedUsers() {
     const users=await getRandomUsers()
     if(users.length===0) return null
@@ -20,7 +21,7 @@ async function SuggestedUsers() {
               <div className="flex items-center gap-1">
                 <Link href={`/profile/${user.username}`}>
                   <Avatar>
-                    <AvatarImage src={user.image ?? "/avatar.png"} />
+                    <AvatarImage src={user.image ?? "/avatar(1).png"} />
                   </Avatar>
                 </Link>
                 <div className="text-xs">
