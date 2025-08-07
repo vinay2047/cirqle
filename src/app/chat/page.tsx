@@ -1,4 +1,3 @@
-
 "use client";
 
 import React from 'react'
@@ -14,17 +13,16 @@ import ChatHeader from '@/components/ChatHeader';
 import MessageInput from '@/components/MessageInput';
 
 import { format } from "date-fns";
-import Navbar from '@/components/Navbar';
+
 import { useUser } from '@clerk/nextjs';
 
-const formatTime = (date: string) => {
+const formatTime = (date: Date) => {
   return format(new Date(date), "hh:mm a");
 };
 
-
 const ChatPage = () => {
   const { user } = useUser();
-  const { messages, selectedUser,getFriends, getMessages } = useChatStore();
+  const { messages, selectedUser, getFriends, getMessages } = useChatStore();
 
   useEffect(() => {
     if (user) getFriends();
@@ -34,11 +32,8 @@ const ChatPage = () => {
     if (selectedUser) getMessages(selectedUser.id);
   }, [selectedUser, getMessages]);
 
-  console.log({ messages });
-
   return (
-    <main className="h-full rounded-lg bg-gradient-to-b from-zinc-800 to-zinc-900 overflow-hidden">
-       <Navbar/>
+    <main className="h-full rounded-lg bg-gradient-to-b from-neutral-900 to-neutral-800 overflow-hidden">
       <div className="grid lg:grid-cols-[300px_1fr] grid-cols-[80px_1fr] h-[calc(100vh-180px)]">
         <FriendsList />
 
@@ -68,12 +63,14 @@ const ChatPage = () => {
 
                       <div
                         className={`rounded-lg p-3 max-w-[70%]
-													${message.senderId === user?.id ? "bg-green-500" : "bg-zinc-800"}
-												`}
+                          ${message.senderId === user?.id
+                            ? "bg-neutral-700 text-neutral-100"
+                            : "bg-neutral-800 text-neutral-200"}
+                        `}
                       >
                         <p className="text-sm">{message.content}</p>
-                        <span className="text-xs text-zinc-300 mt-1 block">
-                          {formatTime(message.createdAt.toDateString())}
+                        <span className="text-xs text-neutral-400 mt-1 block">
+                          {formatTime(message.createdAt)}
                         </span>
                       </div>
                     </div>
@@ -95,12 +92,12 @@ export default ChatPage;
 
 const NoConversationPlaceholder = () => (
   <div className="flex flex-col items-center justify-center h-full space-y-6">
-    <img src="/spotify.png" alt="Spotify" className="size-16 animate-bounce" />
+    <img src="/spotify.png" alt="Cirqle" className="size-16 animate-bounce" />
     <div className="text-center">
-      <h3 className="text-zinc-300 text-lg font-medium mb-1">
+      <h3 className="text-neutral-200 text-lg font-medium mb-1">
         No conversation selected
       </h3>
-      <p className="text-zinc-500 text-sm">Choose a friend to start chatting</p>
+      <p className="text-neutral-400 text-sm">Choose a friend to start chatting</p>
     </div>
   </div>
 );

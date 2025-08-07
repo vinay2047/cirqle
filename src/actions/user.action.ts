@@ -30,7 +30,7 @@ export const syncUser = async () => {
     return newUser;
     return newUser;
   } catch (error) {
-    console.log("Erro in syncUser", error);
+    console.log("Error in syncUser", error);
   }
 };
 

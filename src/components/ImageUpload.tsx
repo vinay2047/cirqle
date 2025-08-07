@@ -6,7 +6,7 @@ import { XIcon } from "lucide-react";
 interface ImageUploadProps {
   onChange: (url: string) => void;
   value: string;
-  endpoint: "imageUploader";
+  endpoint: "postImage";
 }
 
 function ImageUpload({ endpoint, onChange, value }: ImageUploadProps) {
@@ -26,7 +26,7 @@ function ImageUpload({ endpoint, onChange, value }: ImageUploadProps) {
   }
   return (
     <UploadDropzone
-      endpoint={endpoint}
+      endpoint={"postImage"}
       onClientUploadComplete={(res) => {
         onChange(res?.[0].url);
       }}

@@ -15,6 +15,7 @@ const baseUrl =
     : "https://cirqle.vercel.app";
 
 interface ChatStore {
+  isLoading:boolean,
   selectedUser: User | null;
   setSelectedUser: (user: User | null) => void;
   friends:User[];
@@ -41,6 +42,7 @@ export const useChatStore = create<ChatStore>((set,get) => ({
   isConnected: false,
   messages:[],
   friends:[],
+  isLoading:false,
   selectedUser: null,
   setSelectedUser: (user) => set({ selectedUser: user }),
   initializeSocket: (token:string,userId:string) => {
@@ -60,6 +62,7 @@ export const useChatStore = create<ChatStore>((set,get) => ({
 		}
 	},
  sendMessage: async (receiverId:string, content:string, image:string) => {
+  set({isLoading:true});
   try {
     const res = await axiosInstance.post("/chat/send", {
     receiverId,
@@ -79,12 +82,15 @@ export const useChatStore = create<ChatStore>((set,get) => ({
 
   } catch (error:any) {
     toast.error(error.message);
+  }finally{
+    set({isLoading:false});
   }
 
   
 },
 
   deleteMessage:async(messageId:string)=>{
+    set({isLoading:true});
    try {
     const res=await axiosInstance.delete(`/chat/delete/${messageId}`);
     if(res.data.success){
@@ -95,25 +101,33 @@ export const useChatStore = create<ChatStore>((set,get) => ({
     }
    } catch (error:any) {
      toast.error(error.message);
+   }finally{
+    set({isLoading:false});
    }
   },
   getFriends:async()=>{
+    set({isLoading:true})
     try {
       const res=await axiosInstance.get('/chat/friends')
       set({friends:res.data.friends});
     } catch (error:any) {
       console.log('Error in fetching friends',error); 
       toast.error(error.message); 
+    }finally{
+      set({isLoading:false})
     }
   },
 
   getMessages:async(friendId:string)=>{
+    set({isLoading:true})
     try {
       const res=await axiosInstance.get(`/chat/messages/${friendId}`)
       if(res.data.success)
       set({messages:res.data.messages});
     } catch (error) {
       console.log('Error in fetching messages',error);  
+    }finally{
+      set({isLoading:false})
     }
   }
 }));
